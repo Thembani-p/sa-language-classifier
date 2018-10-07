@@ -36,7 +36,7 @@ if __name__ == '__main__':
     with open(os.path.join(DATA_PATH,'single_corpora.json'),'r') as datafile:
         single_corpora = json.load(datafile)
 
-    flat_corpora, flat_labels = flatten_data(single_corpora, language_key)
+    flat_corpora, flat_labels = flatten_data(single_corpora)
     document_matrix, labels, pipeline_instance = prepare_training_data(flat_corpora, flat_labels)
 
     print(document_matrix.shape, labels.shape, pipeline_instance)
