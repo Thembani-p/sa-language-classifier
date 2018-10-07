@@ -22,7 +22,7 @@ DATA_PATH = '../data'
 sys.path.append(MODULES_PATH)
 
 from data import flatten_data, prepare_training_data, prepare_test_data
-from data import simple_ffn
+from models import simple_ffn
 
 
 
