@@ -1,5 +1,8 @@
 
 
+# ------------------------------------------------------------------------------
+# laod packages
+# ------------------------------------------------------------------------------
 import os
 import sys
 import json
@@ -7,13 +10,26 @@ import json
 import numpy as np
 import pandas as pd
 
+from sklearn.model_selection import train_test_split
 
+# ------------------------------------------------------------------------------
+# constants
+# ------------------------------------------------------------------------------
 MODULES_PATH = '../modules'
 MODELS_PATH = '../models'
 DATA_PATH = '../data'
 
 sys.path.append(MODULES_PATH)
 
+from data import flatten_data, prepare_training_data, prepare_test_data
+from data import simple_ffn
+
+
+
+
+# ------------------------------------------------------------------------------
+# main
+# ------------------------------------------------------------------------------
 
 if __name__ == '__main__':
     print('Read data \n')
