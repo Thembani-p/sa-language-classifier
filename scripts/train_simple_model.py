@@ -37,28 +37,29 @@ if __name__ == '__main__':
         single_corpora = json.load(datafile)
 
     flat_corpora, flat_labels = flatten_data(single_corpora)
-    document_matrix, labels, pipeline_instance = prepare_training_data(flat_corpora, flat_labels)
-
-    print(document_matrix.shape, labels.shape, pipeline_instance)
-    print('Split data \n')
-
-    X_train, X_test, y_train, y_test = train_test_split(document_matrix,
-                                                        labels,
+    X_train, X_test, y_train, y_test = train_test_split(flat_corpora,
+                                                        flat_labels,
                                                         test_size=0.25,
                                                         random_state=123)
 
-    X_train, X_valid, y_train, y_valid = train_test_split(X_train,
-                                                          y_train,
-                                                          test_size=0.25,
-                                                          random_state=321)
+    X_train, y_train, pipeline_instance = prepare_training_data(X_train, y_train)
+
+    print(document_matrix.shape, labels.shape, pipeline_instance)
+
+    print('Saving pipeline \n')
+    with open(os.path.join(DATA_PATH, 'pipeline_instance.pickle'),'wb') as datafile:
+        pickle.dump(pipeline_instance, datafile)
 
     print('Train mdoel \n')
     model = simple_ffn(X_train, y_train)
     print(model.summary())
 
-    model.fit(X_train, y_train, epochs=25, validation_data=(X_valid, y_valid), verbose=1)
+    model.fit(X_train, y_train, epochs=50, validation_split=0.1, verbose=1)
 
     model.save(os.path.join(MODELS_PATH,'simple_model.h5'))
 
+    X_test = pipeline_instance.fit_transform(X_test)
+    y_test = pd.get_dummies(y_test)
+
     score, accuracy = model.evaluate(X_test, y_test)
-    print('Model test accuracy', accuracy)
+    print('Model test accuracy', accuracy.round(4))
