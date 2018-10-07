@@ -44,7 +44,7 @@ if __name__ == '__main__':
 
     X_train, y_train, pipeline_instance = prepare_training_data(X_train, y_train)
 
-    print(document_matrix.shape, labels.shape, pipeline_instance)
+    print(X_train.shape, y_train.shape, pipeline_instance)
 
     print('Saving pipeline \n')
     with open(os.path.join(DATA_PATH, 'pipeline_instance.pickle'),'wb') as datafile:
