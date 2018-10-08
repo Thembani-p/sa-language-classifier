@@ -42,17 +42,17 @@ if __name__ == '__main__':
                                                         flat_labels,
                                                         test_size=0.25,
                                                         random_state=123)
-
+    print("Training data \n")
     X_train, y_train, pipeline_instance = prepare_training_data(X_train, y_train)
 
     print(X_train.shape, y_train.shape, pipeline_instance)
 
-    X_test = pipeline_instance.fit_transform(X_test)
-    y_test = pd.get_dummies(y_test)
+    print("Test data \n")
+    X_tes, y_test prepare_test_data(X_test, y_test, pipeline_instance)
 
     print(X_test.shape, y_test.shape)
 
-    assert X_test.shape[1] == X_train.shape[1]
+    assert X_test.shape[1] == X_train.shape[1], "Test and train features differ"
 
     print('Saving pipeline \n')
     with open(os.path.join(DATA_PATH, 'pipeline_instance.pickle'),'wb') as datafile:
@@ -65,8 +65,6 @@ if __name__ == '__main__':
     model.fit(X_train, y_train, epochs=50, validation_split=0.1, verbose=1)
 
     model.save(os.path.join(MODELS_PATH,'simple_model.h5'))
-
-
 
     score, accuracy = model.evaluate(X_test, y_test)
     print('Model test accuracy', accuracy.round(4))
