@@ -63,9 +63,8 @@ def prepare_training_data(flat_corpora, flat_labels):
     return document_matrix, labels, pipeline_instance
 
 def prepare_test_data(flat_corpora, flat_labels, pipeline_instance):
-    vectors = pipeline_instance.transform(flat_corpora)
-
     vocab = pipeline_instance.steps[0][1].get_feature_names()
+    vectors = pipeline_instance.transform(flat_corpora)
 
     document_matrix = pd.DataFrame(vectors.toarray(),columns=vocab)
     labels = pd.get_dummies(flat_labels)

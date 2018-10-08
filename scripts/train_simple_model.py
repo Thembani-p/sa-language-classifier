@@ -47,6 +47,13 @@ if __name__ == '__main__':
 
     print(X_train.shape, y_train.shape, pipeline_instance)
 
+    X_test = pipeline_instance.fit_transform(X_test)
+    y_test = pd.get_dummies(y_test)
+
+    print(X_test.shape, y_test.shape)
+
+    assert X_test.shape[1] == X_train.shape[1]
+
     print('Saving pipeline \n')
     with open(os.path.join(DATA_PATH, 'pipeline_instance.pickle'),'wb') as datafile:
         pickle.dump(pipeline_instance, datafile)
@@ -59,8 +66,7 @@ if __name__ == '__main__':
 
     model.save(os.path.join(MODELS_PATH,'simple_model.h5'))
 
-    X_test = pipeline_instance.fit_transform(X_test)
-    y_test = pd.get_dummies(y_test)
+
 
     score, accuracy = model.evaluate(X_test, y_test)
     print('Model test accuracy', accuracy.round(4))
