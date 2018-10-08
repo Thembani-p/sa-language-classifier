@@ -48,7 +48,7 @@ if __name__ == '__main__':
     print(X_train.shape, y_train.shape, pipeline_instance)
 
     print("Test data \n")
-    X_tes, y_test prepare_test_data(X_test, y_test, pipeline_instance)
+    X_tes, y_test = prepare_test_data(X_test, y_test, pipeline_instance)
 
     print(X_test.shape, y_test.shape)
 
