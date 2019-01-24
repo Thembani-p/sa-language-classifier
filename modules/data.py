@@ -46,9 +46,9 @@ def flatten_data(single_corpora, language_key=LANG_KEY):
 
     return flat_corpora, flat_labels
 
-def prepare_training_data(flat_corpora, flat_labels):
+def prepare_training_data(flat_corpora, flat_labels, nrgam=(2,2), type='char'):
     text_pipeline = Pipeline([
-        ('vect', CountVectorizer(analyzer='char', ngram_range=(2,2))),
+        ('vect', CountVectorizer(analyzer=type, ngram_range=nrgam)),
         ('tfidf', TfidfTransformer())
     ])
 
