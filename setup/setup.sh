@@ -19,4 +19,11 @@ virtualenv --no-site-packages -p python3 sa_lang_env
 source sa_lang_env/bin/activate
 pip install -r setup/requirements.txt
 
-python scripts/train_simple_model.py
+python -m ipykernel install --user --name sa_lang_env --display-name "SA Langs"
+
+cd scripts
+python train_simple_model.py
+
+# for GPU on windows
+# conda install -c anaconda tensorflow-gpu
+# conda install --file requirements-conda.txt

@@ -64,7 +64,12 @@ if __name__ == '__main__':
 
     model.fit(X_train, y_train, epochs=50, validation_split=0.1, verbose=1)
 
+    if not os.path.isdir(MODELS_PATH):
+        os.makedirs(MODELS_PATH)
+
     model.save(os.path.join(MODELS_PATH,'simple_model.h5'))
 
     score, accuracy = model.evaluate(X_test, y_test)
     print('Model test accuracy', accuracy.round(4))
+
+    # Model test accuracy 0.9878

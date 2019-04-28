@@ -91,10 +91,9 @@ def parameter_ffn(X, y, layers = [128],
 
     return model
 
-def parameter_ffn_seq(input_shape, nb_classes, layers = [128],
+def parameter_ffn_seq(input_shape=5, classes=2, layers = [128],
                         activations = ['relu'],
-                        dropout = [0.15],
-                        attention = 128):
+                        dropout = [0.15]):
 
     # allow for mixed length parameters if all are 1 and some are k
     max_len = max(len(layers), len(activations), len(dropout))
@@ -107,7 +106,7 @@ def parameter_ffn_seq(input_shape, nb_classes, layers = [128],
         dropout = dropout*max_len
 
     assert len(layers) == len(activations) == len(dropout), 'your parameters should have the same length or a length of 1'
-    assert type(attention) != 'int', 'the attention layers should be given as an integer'
+    # assert type(attention) != 'int', 'the attention layers should be given as an integer'
     # base network
 
     model = Sequential()
@@ -127,7 +126,7 @@ def parameter_ffn_seq(input_shape, nb_classes, layers = [128],
     # attention_probs = Dense(attention, activation='softmax', name='attention_probs')(x)
     # attention_mul = Multiply(name='attention_mul')([x, attention_probs])
 
-    model.add(Dense(nb_classes))
+    model.add(Dense(classes))
     model.add(Activation('softmax'))
 
     optimizer = Adam(lr=0.5e-4,
